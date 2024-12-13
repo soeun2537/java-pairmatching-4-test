@@ -28,4 +28,15 @@ public class MatchingRepository {
         }
         return false;
     }
+
+    public Matching findMatching(List<String> courseAndLevelAndMission) {
+        for (Matching matching : matchings) {
+            if (matching.getCourse().name().equals(courseAndLevelAndMission.get(0)) &&
+                    matching.getLevel().name().equals(courseAndLevelAndMission.get(1)) &&
+                    matching.getMission().name().equals(courseAndLevelAndMission.get(2))) {
+                return matching;
+            }
+        }
+        throw new IllegalArgumentException(NOT_FOUND_RECORD.getMessage());
+    }
 }
