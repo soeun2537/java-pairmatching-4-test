@@ -65,4 +65,8 @@ public class PairMatchingService {
     public boolean isExist(List<String> courseAndLevelAndMission) {
         return matchingRepository.isExist(courseAndLevelAndMission);
     }
+
+    public void remove(List<String> courseAndLevelAndMission) {
+        matchingRepository.remove(courseAndLevelAndMission);
+    }
 }
