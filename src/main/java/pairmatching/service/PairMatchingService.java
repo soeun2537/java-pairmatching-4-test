@@ -61,4 +61,8 @@ public class PairMatchingService {
         }
         return FileReader.readFile(FRONTEND_CREW_FILE_PATH.getPath());
     }
+
+    public boolean isExist(List<String> courseAndLevelAndMission) {
+        return matchingRepository.isExist(courseAndLevelAndMission);
+    }
 }
