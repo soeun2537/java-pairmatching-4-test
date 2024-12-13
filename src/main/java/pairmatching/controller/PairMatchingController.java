@@ -22,43 +22,65 @@ public class PairMatchingController {
                 break;
             }
             if (option.get().equals("1")) {
-                OutputView.printInformationGuidance();
-                while (true) {
-                    Optional<List<String>> courseAndLevelAndMission = returnCourseAndLevelAndMission();
-                    if (!courseAndLevelAndMission.isPresent()) {
-                        break;
-                    }
-                    if (pairMatchingService.isExist(courseAndLevelAndMission.get())) {
-                        if (!returnExist()) {
-                            continue;
-                        }
-                        pairMatchingService.remove(courseAndLevelAndMission.get());
-                    }
-                    Matching matching = pairMatchingService.match(courseAndLevelAndMission.get());
-                    OutputView.printMatching(matching);
-                    break;
-                }
+                optionOne();
                 continue;
             }
             if (option.get().equals("2")) {
-                OutputView.printInformationGuidance();
-                Optional<List<String>> courseAndLevelAndMission = returnCourseAndLevelAndMission();
-                if (!courseAndLevelAndMission.isPresent()) {
+                if (optionTwo()) {
                     break;
                 }
-                Matching matching = pairMatchingService.findMatching(courseAndLevelAndMission.get());
-                OutputView.printMatching(matching);
                 continue;
             }
             if (option.get().equals("3")) {
-                OutputView.printResetGuidance();
-                pairMatchingService.resetMatching();
+                optionThree();
                 continue;
             }
             if (option.get().equals("Q")) {
                 break;
             }
         }
+    }
+
+    private void optionOne() {
+        OutputView.printInformationGuidance();
+        while (true) {
+            Optional<List<String>> courseAndLevelAndMission = returnCourseAndLevelAndMission();
+            if (!courseAndLevelAndMission.isPresent()) {
+                break;
+            }
+            if (checkExist(courseAndLevelAndMission)) {
+                continue;
+            }
+            Matching matching = pairMatchingService.match(courseAndLevelAndMission.get());
+            OutputView.printMatching(matching);
+            break;
+        }
+    }
+
+    private boolean checkExist(Optional<List<String>> courseAndLevelAndMission) {
+        if (pairMatchingService.isExist(courseAndLevelAndMission.get())) {
+             if (!returnExist()) {
+                 return true;
+             }
+             pairMatchingService.remove(courseAndLevelAndMission.get());
+         }
+        return false;
+    }
+
+    private boolean optionTwo() {
+        OutputView.printInformationGuidance();
+        Optional<List<String>> courseAndLevelAndMission = returnCourseAndLevelAndMission();
+        if (!courseAndLevelAndMission.isPresent()) {
+            return true;
+        }
+        Matching matching = pairMatchingService.findMatching(courseAndLevelAndMission.get());
+        OutputView.printMatching(matching);
+        return false;
+    }
+
+    private void optionThree() {
+        OutputView.printResetGuidance();
+        pairMatchingService.resetMatching();
     }
 
     private Optional<String> returnOption() {
