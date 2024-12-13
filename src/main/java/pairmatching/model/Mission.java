@@ -3,21 +3,15 @@ package pairmatching.model;
 import static pairmatching.constant.message.ErrorMessage.*;
 
 public enum Mission {
-    자동차경주(Level.레벨1),
-    로또(Level.레벨1),
-    숫자야구게임(Level.레벨1),
-    장바구니(Level.레벨2),
-    결제(Level.레벨2),
-    지하철노선도(Level.레벨2),
-    성능개선(Level.레벨4),
-    배포(Level.레벨4),
+    자동차경주,
+    로또,
+    숫자야구게임,
+    장바구니,
+    결제,
+    지하철노선도,
+    성능개선,
+    배포,
     ;
-
-    private final Level level;
-
-    Mission(Level level) {
-        this.level = level;
-    }
 
     public static Mission findMission(String input) {
         for (Mission mission : values()) {
