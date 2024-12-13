@@ -39,4 +39,8 @@ public class MatchingRepository {
         }
         throw new IllegalArgumentException(NOT_FOUND_RECORD.getMessage());
     }
+
+    public void remove(List<String> courseAndLevelAndMission) {
+        matchings.remove(findMatching(courseAndLevelAndMission));
+    }
 }
