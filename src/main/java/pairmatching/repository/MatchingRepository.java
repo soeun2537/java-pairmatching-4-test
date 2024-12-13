@@ -43,4 +43,8 @@ public class MatchingRepository {
     public void remove(List<String> courseAndLevelAndMission) {
         matchings.remove(findMatching(courseAndLevelAndMission));
     }
+
+    public void reset() {
+        matchings = new ArrayList<>();
+    }
 }
