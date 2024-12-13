@@ -24,13 +24,29 @@ public class PairMatchingService {
     }
 
     public Matching match(List<String> courseAndLevelAndMission) {
-        Matching matching = Matching.initialize(Course.findCourse(courseAndLevelAndMission.get(0)),
+        Matching matching = initializeMatching(courseAndLevelAndMission);
+        Queue<String> crewsQueue = initializeCrews(matching);
+
+        List<List<String>> pairs = new ArrayList<>();
+        matchCrews(crewsQueue, pairs);
+        matching.addPairs(pairs);
+
+        matchingRepository.add(matching);
+        return matching;
+    }
+
+    private static Matching initializeMatching(List<String> courseAndLevelAndMission) {
+        return Matching.initialize(Course.findCourse(courseAndLevelAndMission.get(0)),
                 Level.findLevel(courseAndLevelAndMission.get(1)),
                 Mission.findMission(courseAndLevelAndMission.get(2)));
+    }
 
+    private static Queue<String> initializeCrews(Matching matching) {
         List<String> crews = returnCrews(matching);
-        Queue<String> crewsQueue = new LinkedList<>(Randoms.shuffle(crews));
-        List<List<String>> pairs = new ArrayList<>();
+        return new LinkedList<>(Randoms.shuffle(crews));
+    }
+
+    private static void matchCrews(Queue<String> crewsQueue, List<List<String>> pairs) {
         while (!crewsQueue.isEmpty()) {
             List<String> pair = new ArrayList<>();
             if (crewsQueue.size() == 3) {
@@ -44,9 +60,6 @@ public class PairMatchingService {
             handleQueue(crewsQueue, pair);
             pairs.add(pair);
         }
-        matching.addPairs(pairs);
-        matchingRepository.add(matching);
-        return matching;
     }
 
     private static void handleQueue(Queue<String> queue, List<String> pair) {
