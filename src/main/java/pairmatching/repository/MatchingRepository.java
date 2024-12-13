@@ -17,4 +17,15 @@ public class MatchingRepository {
     public void add(Matching matching) {
         matchings.add(matching);
     }
+
+    public boolean isExist(List<String> courseAndLevelAndMission) {
+        for (Matching matching : matchings) {
+            if (matching.getCourse().name().equals(courseAndLevelAndMission.get(0)) &&
+                    matching.getLevel().name().equals(courseAndLevelAndMission.get(1)) &&
+                    matching.getMission().name().equals(courseAndLevelAndMission.get(2))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
