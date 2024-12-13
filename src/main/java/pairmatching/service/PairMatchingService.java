@@ -76,4 +76,8 @@ public class PairMatchingService {
         }
         throw new IllegalArgumentException(NOT_FOUND_RECORD.getMessage());
     }
+
+    public void resetMatching() {
+        matchingRepository.reset();
+    }
 }
