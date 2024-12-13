@@ -69,4 +69,11 @@ public class PairMatchingService {
     public void remove(List<String> courseAndLevelAndMission) {
         matchingRepository.remove(courseAndLevelAndMission);
     }
+
+    public Matching findMatching(List<String> courseAndLevelAndMission) {
+        if (matchingRepository.isExist(courseAndLevelAndMission)) {
+            return matchingRepository.findMatching(courseAndLevelAndMission);
+        }
+        throw new IllegalArgumentException(NOT_FOUND_RECORD.getMessage());
+    }
 }
